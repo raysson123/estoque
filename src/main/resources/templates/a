@@ -1,0 +1,87 @@
+         <!-- left column -->
+                <div class="col-md-5">
+                    <div class="card card card-default">
+                        <div class="card-header">
+                            <h3 class="card-title">Input masks</h3>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <label for="nomeFornecedor">Nome do Fornecedor:</label>
+                                <input type="text" class="form-control" id="nomeFornecedor"
+                                       placeholder="Digita Nome do Fornecedor" name="nomeFornecedor">
+                            </div>
+                            <div class="form-group">
+                                <label for="nomeDeContato">Nome de Contato:</label>
+                                <input type="text" class="form-control" id="nomeDeContato" name="nomeDeContato"
+                                       placeholder="Digita Nome de Contato">
+                            </div>
+                            <div class="form-group">
+                                <label for="numeroCNPJ">Número do CNPJ:</label>
+                                <input type="text" class="form-control" id="numeroCNPJ" name="numeroCNPJ"
+                                       placeholder="Digita CNPJ 99.999.999/9999-99"
+                                       data-inputmask='"mask":  "99.999.999/9999-99"' data-mask>
+                            </div>
+
+                            <!-- phone mask -->
+                            <div class="form-group">
+                                <label>Número de Telefone:</label>
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="numeroDeTelefone"
+                                           name="numeroDeTelefone"
+                                           data-inputmask='"mask":"(99) 99999-9999"' data-mask>
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <!-- /.form group -->
+
+                            <!-- IP mask -->
+                            <div class="form-group">
+                                <label>E-mail:</label>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    </div>
+                                    <input type="email" class="form-control" placeholder="Email" id="Digita numeroEmail"
+                                           name="numeroEmail">
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <!-- /.form group -->
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+                <!--/.col (left) -->
+
+
+                  <!-- DataTables -->
+                  <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+                  <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+                  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+                  <!-- Theme style -->
+                  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+
+
+
+
+
+                  function getRowDataById(columnId) {
+                      var table = $('#example2').DataTable();
+                      var rowData = {};
+
+                      $('#example2').DataTable().rows().every(function (rowIdx, tableLoop, rowLoop) {
+                          var data = this.data();
+                          var columnValue = data[0]; // Assume que o ID está sempre na primeira coluna (índice 0)
+                   console.log(data[0]);
+
+                      });
+
+                      console.log(rowData);
+                  }

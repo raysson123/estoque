@@ -1,0 +1,14 @@
+.container.fornecedores {
+    margin-left: 20px;
+    max-width: none;
+}
+.form-centro {
+    width: 100%;
+}
+.centralizar {
+    margin: auto;
+    MAX-WIDTH: 60%;
+}
+input.forncedor {
+    width: 75%;
+}

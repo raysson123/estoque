@@ -1,0 +1,26 @@
+
+.has-error .form-control {
+    border-color: #a94442;
+}
+
+.has-error .help-block {
+    color: #a94442;
+    margin-top: 5px;
+}
+/* Estilos para o card */
+.card {
+    width: 300px;
+    margin: 0 auto; /* Centraliza horizontalmente */
+    margin-top: 50px; /* Espaço superior */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+/* Estilos adicionais para telas móveis */
+@media (max-width: 767px) {
+    .card {
+        width: 90%; /* Reduz a largura para ocupar 90% da largura da tela */
+    }
+}

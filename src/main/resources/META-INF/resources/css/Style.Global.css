@@ -1,0 +1,21 @@
+
+.floating-alert {
+    position: fixed;
+    bottom: 20px; /* Posiciona o alerta na parte inferior */
+    right: 20px;
+    z-index: 9999;
+    animation: floatAlert 3s ease-in-out;
+}
+
+@keyframes floatAlert {
+    0% {
+        opacity: 1;
+    }
+    90% {
+        transform: translateY(50px); /* Altera a direção da animação para cima */
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100px); /* Altera a direção da animação para cima */
+    }
+}

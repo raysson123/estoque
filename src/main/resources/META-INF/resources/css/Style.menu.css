@@ -1,0 +1,77 @@
+/* Estilo personalizado para a barra lateral */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 100vh;
+    background-color: #f8f9fa;
+    transition: width 0.2s ease;
+}
+
+.sidebar:hover {
+    width: 200px;
+}
+
+/* Estilo personalizado para os ícones do menu */
+.sidebar .nav-link {
+    text-align: center;
+    transition: padding 0.9s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar .nav-link i {
+    width: 20px;
+    margin-left: 25px;
+}
+
+.sidebar .nav-link:hover {
+    padding: 20px 10px;
+}
+
+/* Estilo personalizado para o nome da função */
+.sidebar .nav-link span {
+    display: none;
+}
+
+/* Estilo personalizado para exibir o nome da função ao passar o mouse */
+.sidebar .nav-link:hover span {
+    display: inline;
+}
+
+/* Estilo personalizado para o submenu */
+.sidebar .sub-menu {
+    display: none;
+    width: 160px;
+}
+
+.sidebar .nav-item:hover .sub-menu {
+    display: block;
+    left: 200px;
+}
+
+ul.sub-menu {
+    list-style: none;
+}
+
+/* Estilo personalizado para o conteúdo centralizado */
+.content-wrapper {
+    margin-left: 70px;
+    padding: 20px;
+    transition: margin-left 0.9s ease;
+}
+
+.sidebar:hover + .content-wrapper {
+    margin-left: 200px;
+}
+a.text-center {
+    text-align: center;
+    margin: auto;
+    display: block;
+    padding-left: 10px;
+}
+a#userName {
+    font-size: 12px;
+}
