@@ -13,7 +13,7 @@ $(document).ready(function () {
         };
 
         $.ajax({
-            url: '/login/autenticar',
+            url: '/user/autenticar',
             type: 'POST',
             headers: {
                 "Accept": "application/json",

@@ -2,6 +2,7 @@ package br.edu.ifg.luziania.model.dao;
 
 import br.edu.ifg.luziania.model.entity.Categoria;
 
+import br.edu.ifg.luziania.model.entity.Fornecedor;
 import br.edu.ifg.luziania.model.entity.Produtos;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -68,6 +69,12 @@ public class CategoriaDAO {
         if (count == 0) {
             entityManager.remove(entityManager.contains(categoria) ? categoria : entityManager.merge(categoria));
         }
+    }
+
+    @Transactional
+    public void atualizarProduto(Categoria categoria) {
+
+        entityManager.merge(categoria);
     }
 }
 

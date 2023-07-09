@@ -20,8 +20,6 @@ import jakarta.ws.rs.core.Response;
 @Path("/")
 public class PainelController {
 
-    @Inject
-    Template painel;
 
     @Inject
     UsuarioBO usuarioBO;

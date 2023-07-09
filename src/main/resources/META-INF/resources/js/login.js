@@ -32,7 +32,7 @@ $(document).ready(function () {
         };
 
         $.ajax({
-            url: '/login/autenticar',
+            url: '/user/autenticar',
             type: 'POST',
             headers: {
                 "Accept": "application/json",
@@ -101,7 +101,7 @@ $(document).ready(function () {
         // Submeter o formulário se todos os campos forem válidos
         if (isValid) {
             $.ajax({
-                url: "/login/salvar",
+                url: "/user/salvar",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",

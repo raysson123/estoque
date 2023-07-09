@@ -15,7 +15,7 @@ function EviarPOST(url, dados) {
             }
         })
         .catch(error => {
-            throw new Error(`Erro na solicitação: ${error.message}`);
+            return error;
         });
 }
 

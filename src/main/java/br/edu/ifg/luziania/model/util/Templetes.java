@@ -24,6 +24,7 @@ public class Templetes {
     public static native TemplateInstance painel();
     public static native TemplateInstance test();
     public static native TemplateInstance Profile();
+    public static native TemplateInstance Cartegoria();
 
 
     public static TemplateInstance valores1(String url) {
@@ -37,6 +38,7 @@ public class Templetes {
             case "6" -> painel();
             case "7" -> test();
             case "8" -> Profile();
+            case "9" -> Cartegoria();
             default -> erro404();
         };
     }

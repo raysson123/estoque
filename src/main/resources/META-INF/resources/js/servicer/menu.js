@@ -11,7 +11,7 @@ $(document).ready(function () {
     $('#sair').click(function (e) {
         e.preventDefault(); // Impede o comportamento padrão do link
 
-        EviarPOST("/login/sair", userName)
+        EviarPOST("/user/sair", userName)
             .then(function () {
                 console.log("Logout realizado com sucesso");
                 // Redirecionar para a página inicial

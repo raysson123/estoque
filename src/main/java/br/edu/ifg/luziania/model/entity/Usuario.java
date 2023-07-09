@@ -1,6 +1,7 @@
 package br.edu.ifg.luziania.model.entity;
 
 import br.edu.ifg.luziania.model.util.TipoUsuario;
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +14,7 @@ public class Usuario {
     private Integer id;
     @Column(nullable = false, unique = true)
     private String email;
+    @JsonbTransient
     private String senha;
     private String nomeUsuario;
     private TipoUsuario tipoUsuario;

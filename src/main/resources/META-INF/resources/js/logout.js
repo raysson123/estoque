@@ -2,7 +2,7 @@ $("#logout").click(function (event) {
     event.preventDefault();
 
     $.ajax({
-        url: '/login/sair',
+        url: '/user/sair',
         type: 'POST',
         headers: {
             "Accept": "application/json",

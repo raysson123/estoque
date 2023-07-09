@@ -1,18 +1,17 @@
 package br.edu.ifg.luziania.controller;
 
 import br.edu.ifg.luziania.model.bo.UsuarioBO;
+import br.edu.ifg.luziania.model.dto.SenhaDTO;
 import br.edu.ifg.luziania.model.dto.UsuarioDTO;
+import br.edu.ifg.luziania.model.util.Templetes;
 import io.quarkus.qute.Template;
 
 import jakarta.inject.Inject;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.UriInfo;
 
-@Path("/login")
+@Path("/user")
 public class LoginController {
 
     @Inject
@@ -27,6 +26,20 @@ public class LoginController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response autenticar(UsuarioDTO usuarioDTO) {
         return usuarioBO.autenticar(usuarioDTO);
+    }
+    @POST
+    @Path("/setuser")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response setUser(String token) {
+        return usuarioBO.SetUsuario(token);
+    }
+    @POST
+    @Path("/trocarsenha")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response AtulSenha(SenhaDTO senhaDTO) {
+        return usuarioBO.Atulisar(senhaDTO);
     }
 
     /**
@@ -54,18 +67,15 @@ public class LoginController {
 
 
     }
+    @GET
+    @Produces(MediaType.TEXT_HTML)
+    @Path("/profile")
+    public Response principal() {
+
+        return Response.status(Response.Status.OK)
+                .entity(Templetes.valores1(usuarioBO.validar("8")))
+                .build();
+    }
 
 
-    ///
-//    @GET
-//    public Response errorPage(@Context HttpServletRequest request, @Context UriInfo uriInfo) {
-//        // Obtém a URL da página não encontrada
-//        String requestUrl = uriInfo.getRequestUri().toString();
-//
-//        // Pode usar requestUrl para personalizar a página de erro, exibindo a URL não encontrada ou outras informações
-//
-//        return Response.status(Response.Status.NOT_FOUND)
-//                .entity("Página não encontrada: " + requestUrl)
-//                .build();
-//    }
 }

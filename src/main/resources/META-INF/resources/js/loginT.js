@@ -72,9 +72,13 @@ $(document).ready(function () {
 });
 
 function login(dados) {
-    EviarPOST("/login/autenticar", dados)
+    EviarPOST("/user/autenticar", dados)
         .then(function (response) {
-            return Promise.all([response.json(), response.headers.get('Authorization')]);
+            if (response.ok) {
+                return Promise.all([response.json(), response.headers.get('Authorization')]);
+            } else {
+                throw new Error('Erro na solicitação');
+            }
         })
         .then(function ([json, token]) {
             localStorage.setItem('token', token);
@@ -84,7 +88,11 @@ function login(dados) {
             // Resto do seu código...
         })
         .catch(function (error) {
-            console.log(error);
+            console.log(error)
+            console.log('Erro:', error);
+            exibirAlertaErro('Ocorreu um erro na solicitação');
+
         });
+
 
 }

@@ -2,9 +2,11 @@ package br.edu.ifg.luziania.model.bo;
 
 import br.edu.ifg.luziania.model.dao.CategoriaDAO;
 import br.edu.ifg.luziania.model.dto.CatergoriaDTO;
+import br.edu.ifg.luziania.model.dto.FornecedorDTO;
 import br.edu.ifg.luziania.model.dto.RespostaDTO;
 import br.edu.ifg.luziania.model.entity.Categoria;
 
+import br.edu.ifg.luziania.model.entity.Fornecedor;
 import br.edu.ifg.luziania.model.entity.Produtos;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
@@ -95,6 +97,39 @@ public class CategoriaBO {
             // Em caso de falha, retornar uma resposta de erro interno do servidor
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity(new RespostaDTO(500, "Falha ao excluir Cadastro!", "/"))
+                    .build();
+        }
+    }
+
+
+    public Response atualizarFornecedor(Integer id, CatergoriaDTO catergoriaDTO) {
+        // Buscar o produto existente pelo ID
+        Categoria categoriaExite = categoriaDAO.obterCategoriaPorId(id);
+
+        // Verificar se o produto existe
+        if (categoriaExite == null) {
+            // Caso não exista, retornar uma resposta de não encontrado
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        // Criar uma nova instância do objeto Produtos
+        Categoria categoria = new Categoria();
+
+        // Definir os valores dos atributos com base nos dados do DTO
+        categoria.setNomeCategoria(catergoriaDTO.getNomeCategoria());
+        categoria.setId(id);
+
+
+        try {
+            // Atualizar o produto
+            categoriaDAO.atualizarProduto(categoria);
+
+            // Retornar uma resposta de sucesso
+            return Response.ok(new RespostaDTO(200, "Produto atualizado com sucesso!", "/")).build();
+        } catch (Exception e) {
+            // Em caso de falha, retornar uma resposta de erro interno do servidor
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new RespostaDTO(500, "Falha ao atualizar produto!", "/"))
                     .build();
         }
     }
