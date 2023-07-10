@@ -1,15 +1,23 @@
 package br.edu.ifg.luziania.model.dto;
 
+import br.edu.ifg.luziania.model.entity.Fornecedor;
+
+import java.math.BigDecimal;
+import java.util.Date;
+
 public class Dados_ProdutoDTO {
     private Integer id;
     private String modelo;
     private String numeroDeSerie;
-    private String dataDeAquisicao;
-    private String precoDeCompra;
-    private String quantidadeDisponivel;
-    private Integer fornecedorId;
+    private Date dataDeAquisicao;
+    private BigDecimal precoDeCompra;
+    private Integer quantidadeDisponivel;
+    private Fornecedor fornecedorDTO;
+    private String produtosNome;
+    private String produtosCartegoria;
 
     // Construtores, getters e setters
+
 
     public Integer getId() {
         return id;
@@ -35,35 +43,51 @@ public class Dados_ProdutoDTO {
         this.numeroDeSerie = numeroDeSerie;
     }
 
-    public String getDataDeAquisicao() {
+    public Date getDataDeAquisicao() {
         return dataDeAquisicao;
     }
 
-    public void setDataDeAquisicao(String dataDeAquisicao) {
+    public void setDataDeAquisicao(Date dataDeAquisicao) {
         this.dataDeAquisicao = dataDeAquisicao;
     }
 
-    public String getPrecoDeCompra() {
+    public BigDecimal getPrecoDeCompra() {
         return precoDeCompra;
     }
 
-    public void setPrecoDeCompra(String precoDeCompra) {
+    public void setPrecoDeCompra(BigDecimal precoDeCompra) {
         this.precoDeCompra = precoDeCompra;
     }
 
-    public String getQuantidadeDisponivel() {
+    public Integer getQuantidadeDisponivel() {
         return quantidadeDisponivel;
     }
 
-    public void setQuantidadeDisponivel(String quantidadeDisponivel) {
+    public void setQuantidadeDisponivel(Integer quantidadeDisponivel) {
         this.quantidadeDisponivel = quantidadeDisponivel;
     }
 
-    public Integer getFornecedorId() {
-        return fornecedorId;
+    public Fornecedor getFornecedorDTO() {
+        return fornecedorDTO;
     }
 
-    public void setFornecedorId(Integer fornecedorId) {
-        this.fornecedorId = fornecedorId;
+    public void setFornecedorDTO(Fornecedor fornecedorDTO) {
+        this.fornecedorDTO = fornecedorDTO;
+    }
+
+    public String getProdutosNome() {
+        return produtosNome;
+    }
+
+    public void setProdutosNome(String produtosNome) {
+        this.produtosNome = produtosNome;
+    }
+
+    public String getProdutosCartegoria() {
+        return produtosCartegoria;
+    }
+
+    public void setProdutosCartegoria(String produtosCartegoria) {
+        this.produtosCartegoria = produtosCartegoria;
     }
 }

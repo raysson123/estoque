@@ -182,13 +182,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Cadastro de Cartegoria</h1>
+                        <h1 class="m-0">Estoque</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item ">Estoque</li>
-                            <li class="breadcrumb-item active">Cadastro de Cartegoria</li>
+                            <li class="breadcrumb-item active">Estoque</li>
+
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -200,35 +200,11 @@
 
             <div class="row">
                 <!-- left column -->
-                <div class="col-md-4">
-                    <div class="card card card-default">
-                        <div class="card-header">
-                            <h3 class="card-title">Formulario</h3>
-                        </div>
-                        <!-- form start -->
-                        <form id="FormeC">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="nomeFornecedor">Nome do Cartegoria:</label>
-                                    <input type="text" class="form-control" id="cartegoria"
-                                           placeholder="Digita Nome do cartegoria" name="nomeCartegoria">
-                                </div>
 
-                            </div>
-                            <!-- /.card-body -->
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Emviar</button>
-                            </div>
-
-                        </form>
-
-
-                    </div>
-                </div>
                 <!--/.col (left) -->
                 <!-- right column -->
 
-                <div class="col-6">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Tabela Cartegoria</h3>
@@ -344,7 +320,87 @@
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/js/servicer/fetchDados.js"></script>
+
 <script src="/js/servicer/MsegendeDerequsicao.js"></script>
+
 <script src="/js/Cartegoria.js"></script>
+<script>
+    $(document).ready(function () {
+
+
+
+
+        //Money Euro
+
+        listTabelas();
+
+    });
+    function listTabelas() {
+        listarTudo('/dadosprodutos/list')
+            .then(function (response) {
+                // preencherTabela(response);
+
+                if ($.fn.DataTable.isDataTable('#example2')) {
+                    $('#example2').DataTable().destroy();
+                }
+
+                $('#example2').DataTable({
+                    destroy: true,
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                    displayLength: 5,
+                    data: response,
+                    columns: [
+                        {
+                            data: 'id', title: 'ID'
+                        },
+                        {
+                            data: 'produtosNome', title: 'Nome de Produto'
+                        },
+                        {
+                            data: 'produtosCartegoria', title: 'nome Cartegoria'
+                        },
+                        {
+                            data: 'quantidadeDisponivel', title: 'nome quatidade'
+                        },
+                        {
+                            data: 'modelo', title: 'modelo'
+                        },
+                        {
+                            data: 'numeroDeSerie', title: 'numero de serie'
+                        },
+                        {
+                            data: null,
+                            title: 'Excluir',
+                            render: function (data, type, row) {
+                                if (!row.possuiProduto) {
+
+                                    return "<button class='btn btn-danger excluir'data-row-id='" + data.id + "'>" +
+                                        "<i class='fa-solid fa-trash-can'></i></button>";
+                                }
+                                return "";
+                            }
+                        },
+                        {
+                            data: null,
+                            title: 'Editar',
+                            render: function (data, type, row) {
+                                return "<button class='btn btn-primary editar' data-row-id='" + data.id + "' data-toggle='modal' data-target='#modal-lg'>" +
+                                    "<i class='fa-solid fa-pen-to-square'></i></button>";
+                            }
+                        }
+                    ]
+                });
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+    }
+</script>
 </body>
 </html>

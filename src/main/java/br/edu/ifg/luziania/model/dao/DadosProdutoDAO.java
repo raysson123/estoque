@@ -1,6 +1,7 @@
 package br.edu.ifg.luziania.model.dao;
 
 import br.edu.ifg.luziania.model.entity.DadosProduto;
+import br.edu.ifg.luziania.model.entity.Produtos;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -32,6 +33,10 @@ public class DadosProdutoDAO {
         // É uma boa prática realizar o flush e o clear após a inserção de entidades em lote
         entityManager.flush();
         entityManager.clear();
+    }
+    @Transactional
+    public DadosProduto buscarDadosProdutosPorId(Integer id) {
+        return entityManager.find(DadosProduto.class, id);
     }
 
 }

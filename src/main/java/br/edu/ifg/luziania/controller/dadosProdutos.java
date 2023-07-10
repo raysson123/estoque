@@ -4,6 +4,7 @@ import br.edu.ifg.luziania.model.bo.DadosProdutoBO;
 import br.edu.ifg.luziania.model.bo.UsuarioBO;
 import br.edu.ifg.luziania.model.dto.DadosProdutoDTO;
 import br.edu.ifg.luziania.model.dto.FornecedorDTO;
+import br.edu.ifg.luziania.model.dto.UsarioRetiraProdutoDTO;
 import br.edu.ifg.luziania.model.util.Templetes;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
@@ -28,6 +29,13 @@ public class dadosProdutos {
                 .entity(Templetes.valores1(usuarioBO.validar("5")))
                 .build();
     }
+    @GET
+    @Path("/list")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listarcategoria() {
+        return dadosProdutoBO.dadosDadosPLista();
+    }
 
     @POST
     @Path("/cadatralist")
@@ -36,5 +44,12 @@ public class dadosProdutos {
     public Response savar(DadosProdutoDTO[] dadosProdutoDTO) {
 
         return dadosProdutoBO.cadastradadosProdutos(dadosProdutoDTO);
+    }  @POST
+    @Path("/retirar")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response savar(UsarioRetiraProdutoDTO[] dadosProdutoDTO) {
+
+        return dadosProdutoBO.retiradadeProdutos(dadosProdutoDTO);
     }
 }
