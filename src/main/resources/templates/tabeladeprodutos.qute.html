@@ -131,7 +131,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/dadosprodutos" class="nav-link ">
+                                <a href="/dadosprodutos" class="nav-link active">
                                     <i class="fa-solid fa-list-check nav-icon"></i>
 
                                     <p>Controle de Estoque</p>
@@ -145,7 +145,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/cartegoria" class="nav-link active">
+                                <a href="/cartegoria" class="nav-link ">
 
                                     <i class="fa-solid fa-tags nav-icon"></i>
                                     <p>Cartegoria</p>
@@ -180,13 +180,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Cadastro de Cartegoria</h1>
+                        <h1 class="m-0">Estoque</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item ">Estoque</li>
-                            <li class="breadcrumb-item active">Cadastro de Cartegoria</li>
+                            <li class="breadcrumb-item active">Estoque</li>
+
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -198,35 +198,11 @@
 
             <div class="row">
                 <!-- left column -->
-                <div class="col-md-4">
-                    <div class="card card card-default">
-                        <div class="card-header">
-                            <h3 class="card-title">Formulario</h3>
-                        </div>
-                        <!-- form start -->
-                        <form id="FormeC">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="nomeFornecedor">Nome do Cartegoria:</label>
-                                    <input type="text" class="form-control" id="cartegoria"
-                                           placeholder="Digita Nome do cartegoria" name="nomeCartegoria">
-                                </div>
 
-                            </div>
-                            <!-- /.card-body -->
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Emviar</button>
-                            </div>
-
-                        </form>
-
-
-                    </div>
-                </div>
                 <!--/.col (left) -->
                 <!-- right column -->
 
-                <div class="col-6">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Tabela Cartegoria</h3>
@@ -281,15 +257,20 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="nomeFornecedor">Nome do Cartegoria:</label>
-                            <input type="text" class="form-control" id="cartegoriaAtul"
-                                   placeholder="Digita Nome do cartegoria" name="nomeCategoria">
+                            <input type="number" class="form-control" min="1" id="quatidade"
+                                   placeholder="Digita Nome do cartegoria">
+                        </div>
+                        <div class="form-group">
+                            <label for="descricaoAtul">Descrição:</label>
+                            <textarea class="form-control" rows="3" placeholder="Enter ..." id="descricao"
+                                      name="descricao"></textarea>
                         </div>
                     </div>
 
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" >Save changes</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
 
             </form>
@@ -298,6 +279,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
 <!-- jQuery -->
 
 <script src="/plugins/jquery/jquery.min.js"></script>
@@ -342,8 +324,170 @@
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/js/servicer/fetchDados.js"></script>
+
 <script src="/js/servicer/MsegendeDerequsicao.js"></script>
-<script src="/js/Cartegoria.js"></script>
-<script src="js/servicer/menu.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $('#example2').on('click', '.editar', function () {
+            let rowId = $(this).attr('data-row-id');
+            $('#example2').DataTable().rows().every(function () {
+                let data = this.data();
+                //console.log('Dados da linha selecionada:', data);
+                if (data.id == rowId) {
+
+                    $('#editarId').val(data.id);
+                    $('#quatidade').attr('min', '1');
+                    $('#quatidade').attr('max', data.quantidadeDisponivel);
+                    //console.log('Dados da linha selecionada:', data);
+                    return false; // Parar a iteração
+                }
+            });
+
+            // Obter o ID da linha selecionada
+
+
+            // Faça o que deseja com o ID da linha selecionada
+        });
+
+        $('#FormeA').validate({
+            rules: {
+                descricao: {
+                    required: true,
+                },
+
+            },
+            messages: {
+                nomeCartegoriaAtul: "Digitar uma",
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            },
+            submitHandler: function (form, event) {
+                event.preventDefault(); // Impede o comportamento padrão de envio do formulário
+
+
+                // Obter a data atual
+                // Obter a data atual
+                let dataAtual = new Date();
+                let dia = dataAtual.getDate();
+                let mes = dataAtual.getMonth() + 1;
+                let ano = dataAtual.getFullYear();
+                let dataFormatada = ano + '-' + mes + '-' + dia;
+//yyyy-MM-dd
+                let frome = {
+                    'dadosProdutoID': $('#editarId').val(),
+                    'descricao': $('#descricao').val(),
+                    'quatida': $('#quatidade').val(),
+                    'dataDeRetirada': dataFormatada
+                };
+                dadosgral.push(frome);
+                // Converter o array de objetos para um objet
+                console.log(dadosgral);
+
+                EviarPOST("/dadosprodutos/retirar", dadosgral)
+                    .then(function (response) {
+                        listTabelas();
+                        exibirAlertaSuccess(response.mensagem);
+                        $('#modal-lg').modal('hide');
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                    });
+            }
+        });
+
+        //Money Euro
+
+        listTabelas();
+
+    });
+
+    function listTabelas() {
+        listarTudo('/dadosprodutos/list')
+            .then(function (response) {
+                // preencherTabela(response);
+
+                if ($.fn.DataTable.isDataTable('#example2')) {
+                    $('#example2').DataTable().destroy();
+                }
+
+                $('#example2').DataTable({
+                    destroy: true,
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                    displayLength: 5,
+                    data: response,
+                    columns: [
+                        {
+                            data: 'id', title: 'ID'
+                        },
+                        {
+                            data: 'produtosNome', title: 'Nome de Produto'
+                        },
+                        {
+                            data: 'produtosCartegoria', title: 'nome Cartegoria'
+                        },
+                        {
+                            data: 'quantidadeDisponivel', title: 'Quatidade'
+                        },
+                        {
+                            data: 'modelo', title: 'modelo'
+                        },
+                        {
+                            data: 'numeroDeSerie', title: 'numero de serie'
+                        },
+
+                        {
+                            data: null,
+                            title: 'Excluir',
+                            render: function (data, type, row) {
+                                if (!row.possuiProduto) {
+
+                                    return "<button class='btn btn-danger excluir'data-row-id='" + data.id + "'>" +
+                                        "<i class='fa-solid fa-trash-can'></i></button>";
+                                }
+                                return "";
+                            }
+                        },
+                        {
+                            data: null,
+                            title: 'remover',
+                            render: function (data, type, row) {
+                                if (row.quantidadeDisponivel>0){
+                                    return "<button class='btn btn-primary editar' data-row-id='" + data.id + "' data-toggle='modal' data-target='#modal-lg'>" +
+                                        "<i class='fa-solid fa-pen-to-square'></i></button>";
+                                }else {
+                                    return "";
+                                }
+
+                            }
+                        }
+                    ]
+                });
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+    }
+
+    var dadosgral = [];
+
+
+</script>
 </body>
 </html>

@@ -20,7 +20,13 @@ public class dadosProdutos {
     UsuarioBO usuarioBO;
     @Inject
     DadosProdutoBO dadosProdutoBO;
-
+    @GET
+    @Produces(MediaType.TEXT_HTML)
+    public Response dadosprodutos() {
+        return Response.status(Response.Status.OK)
+                .entity(Templetes.valores1(usuarioBO.validar("10")))
+                .build();
+    }
     @GET
     @Path("/cadatralist")
     @Produces(MediaType.TEXT_HTML)

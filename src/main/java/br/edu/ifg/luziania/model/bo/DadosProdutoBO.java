@@ -1,15 +1,12 @@
 package br.edu.ifg.luziania.model.bo;
 
-import br.edu.ifg.luziania.model.dao.DadosProdutoDAO;
-import br.edu.ifg.luziania.model.dao.FornecedorDAO;
-import br.edu.ifg.luziania.model.dao.ProdutosDAO;
-import br.edu.ifg.luziania.model.dao.UsuarioDAO;
+import br.edu.ifg.luziania.model.dao.*;
 import br.edu.ifg.luziania.model.dto.DadosProdutoDTO;
 import br.edu.ifg.luziania.model.dto.Dados_ProdutoDTO;
 import br.edu.ifg.luziania.model.dto.RespostaDTO;
 import br.edu.ifg.luziania.model.dto.UsarioRetiraProdutoDTO;
 import br.edu.ifg.luziania.model.entity.DadosProduto;
-import br.edu.ifg.luziania.model.util.UsarioRetiraProdutos;
+import br.edu.ifg.luziania.model.entity.UsarioRetiraProdutos;
 import br.edu.ifg.luziania.model.util.UserSession;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
@@ -25,9 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Dependent
-public class DadosProdutoBO{
+public class DadosProdutoBO {
     @Inject
-    DadosProdutoDAO dadosProdutoDAO ;
+    UsarioRetiraProdutoDAO usarioRetiraProdutoDAO;
+    @Inject
+    DadosProdutoDAO dadosProdutoDAO;
     @Inject
     UserSession userSession;
     @Inject
@@ -36,6 +35,7 @@ public class DadosProdutoBO{
     UsuarioDAO usuarioDAO;
     @Inject
     ProdutosDAO produtosDAO;
+
     @Transactional
     public Response cadastradadosProdutos(DadosProdutoDTO[] dadosProdutoDTOS) {
         List<DadosProduto> listaDadosProduto = new ArrayList<>(); // Corrigido para usar List e ArrayList
@@ -91,6 +91,7 @@ public class DadosProdutoBO{
                     .build();
         }
     }
+
     public Response dadosDadosPLista() {
         List<DadosProduto> dadosProdutos = dadosProdutoDAO.listarTodos();
         List<Dados_ProdutoDTO> dados_produtoDTOS = new ArrayList<>();
@@ -131,25 +132,24 @@ public class DadosProdutoBO{
         }
     }
 
-    public Response retiradadeProdutos(UsarioRetiraProdutoDTO[]usarioRetiraProdutoDTOS){
+    public Response retiradadeProdutos(UsarioRetiraProdutoDTO[] usarioRetiraProdutoDTOS) {
         List<UsarioRetiraProdutos> usarioRetiraProdutos = new ArrayList<>(); // Corrigido para usar List e ArrayList
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Movido a criação do SimpleDateFormat para fora do loop
 
 
         for (UsarioRetiraProdutoDTO usarioRetiraProdutoDTO : usarioRetiraProdutoDTOS) {
-            UsarioRetiraProdutos  usarioRetiraProdutos1= new UsarioRetiraProdutos(); // Movido a criação do objeto DadosProduto para dentro do loop
+            UsarioRetiraProdutos usarioRetiraProdutos1 = new UsarioRetiraProdutos(); // Movido a criação do objeto DadosProduto para dentro do loop
 
             // Preenche os campos do objeto DadosProduto com os dados do DadosProdutoDTO
-            usarioRetiraProdutos1.setDadosProduto(dadosProdutoDAO.buscarDadosProdutosPorId(usarioRetiraProdutoDTO.getDadosProduto().getId()));
+            usarioRetiraProdutos1.setDadosProduto(dadosProdutoDAO.buscarDadosProdutosPorId(usarioRetiraProdutoDTO.getDadosProdutoID()));
             usarioRetiraProdutos1.setUsuario(usuarioDAO.findById(userSession.getUserSessionDTO().getId()));
-            usarioRetiraProdutos1.setDescrição(usarioRetiraProdutoDTO.);
-            dadosProduto.setPrecoDeCompra(dadosProdutoDTO.getPrecoDeCompra());
-            dadosProduto.setNumeroDeSerie(dadosProdutoDTO.getNumeroDeSerie());
-            dadosProduto.setModelo(dadosProdutoDTO.getModelo());
-            dadosProduto.setQuantidadeDisponivel(dadosProdutoDTO.getQuantidadeDisponivel());
+            usarioRetiraProdutos1.setDescricao(usarioRetiraProdutoDTO.getDescricao());
+            System.out.println(usarioRetiraProdutoDTO.getQuatida());
+            usarioRetiraProdutos1.setQuatida(usarioRetiraProdutoDTO.getQuatida());
+
 
             try {
-                dadosProduto.setDataDeAquisicao(sdf.parse(dadosProdutoDTO.getDataDeAquisicao()));
+                usarioRetiraProdutos1.setDataDeRetirada(sdf.parse(usarioRetiraProdutoDTO.getDataDeRetirada()));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -161,7 +161,7 @@ public class DadosProdutoBO{
         try {
             // Agora você precisa decidir o que deseja fazer com a lista de DadosProduto preenchida
             // Talvez você queira passar essa lista para o método cadastrarFornecedor() do fornecedorDAO
-            dadosProdutoDAO.cadastrarDadosProdutos(listaDadosProduto);
+            usarioRetiraProdutoDAO.cadastrarDadosProdutos(usarioRetiraProdutos);
 
             return Response.ok(new RespostaDTO(200, "Fornecedor retirada com sucesso!", "/")).build();
         } catch (Exception e) {

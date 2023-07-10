@@ -1,6 +1,6 @@
 package br.edu.ifg.luziania.model.dto;
 
-import br.edu.ifg.luziania.model.entity.DadosProduto;
+
 import br.edu.ifg.luziania.model.entity.Usuario;
 
 import java.util.Date;
@@ -8,12 +8,12 @@ import java.util.Date;
 public class UsarioRetiraProdutoDTO {
     private Integer id;
 
-    private DadosProduto dadosProduto;
+    private Integer dadosProdutoID;
+    private Usuario usuario;
     private String descricao;
 
-    private Usuario usuario;
     private Integer quatida;
-    private Date dataDeRetirada;
+    private String dataDeRetirada;
 
     public Integer getId() {
         return id;
@@ -23,20 +23,12 @@ public class UsarioRetiraProdutoDTO {
         this.id = id;
     }
 
-    public DadosProduto getDadosProduto() {
-        return dadosProduto;
+    public Integer getDadosProdutoID() {
+        return dadosProdutoID;
     }
 
-    public void setDadosProduto(DadosProduto dadosProduto) {
-        this.dadosProduto = dadosProduto;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDadosProdutoID(Integer dadosProdutoID) {
+        this.dadosProdutoID = dadosProdutoID;
     }
 
     public Usuario getUsuario() {
@@ -47,6 +39,14 @@ public class UsarioRetiraProdutoDTO {
         this.usuario = usuario;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     public Integer getQuatida() {
         return quatida;
     }
@@ -55,11 +55,11 @@ public class UsarioRetiraProdutoDTO {
         this.quatida = quatida;
     }
 
-    public Date getDataDeRetirada() {
+    public String getDataDeRetirada() {
         return dataDeRetirada;
     }
 
-    public void setDataDeRetirada(Date dataDeRetirada) {
+    public void setDataDeRetirada(String dataDeRetirada) {
         this.dataDeRetirada = dataDeRetirada;
     }
 }

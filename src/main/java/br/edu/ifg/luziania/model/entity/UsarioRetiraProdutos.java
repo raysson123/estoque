@@ -1,13 +1,10 @@
-package br.edu.ifg.luziania.model.util;
+package br.edu.ifg.luziania.model.entity;
 
-import br.edu.ifg.luziania.model.entity.DadosProduto;
-import br.edu.ifg.luziania.model.entity.Usuario;
 import jakarta.persistence.*;
 
 import java.util.Date;
-
 @Entity
-@Table
+@Table(name = "UsarioRetiraProdutos")
 public class UsarioRetiraProdutos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +12,7 @@ public class UsarioRetiraProdutos {
     @ManyToOne
     @JoinColumn(name = "dadosProduto_id")
     private DadosProduto dadosProduto;
-    private String descrição;
+    private String descricao;
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
@@ -39,12 +36,12 @@ public class UsarioRetiraProdutos {
         this.dadosProduto = dadosProduto;
     }
 
-    public String getDescrição() {
-        return descrição;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDescrição(String descrição) {
-        this.descrição = descrição;
+    public void setDescricao(String descrição) {
+        this.descricao = descrição;
     }
 
     public Usuario getUsuario() {
